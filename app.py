@@ -29,6 +29,14 @@ def create_store():
     stores[store_id] = new_store
     return new_store, 201
 
+@app.delete("/store/<string:store_id>")
+def delete_store(store_id):
+    try:
+        del store[store_id]
+        return { "message": "Store deleted" }
+    except KeyError:
+        abort (404, message="Store not found")
+
 @app.get("/item")
 def get_items():
     return { "item": list(items.values()) }
@@ -61,5 +69,23 @@ def create_item():
 
     return item, 201
 
+@app.put("/item/<string:item_id>")
+def update_item(item_id):
+    item_data = request.get_json()
+    if "price" not in item_data or "name" not in item_data:
+        abort(400, "Bad request!")
+    try:
+        item = items[item_id]
+        item |= item_data
+        return item
+    except KeyError:
+        abort(404, message="Item not found")
 
+@app.delete("/item/<string:item_id>")
+def delete_item(item_id):
+    try:
+        del items[item_id]
+        return { "message": "Item deleted" }
+    except KeyError:
+        abort (404, message="Item not found")
 
