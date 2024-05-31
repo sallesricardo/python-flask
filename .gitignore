@@ -3,3 +3,4 @@ __pycache__/
 instance/
 .flaskenv
 data.db
+*.pyc
