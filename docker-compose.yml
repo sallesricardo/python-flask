@@ -8,6 +8,7 @@ services:
       - ./:/app:z
     env_file:
       - .env
+      - .flaskenv
     environment:
       ENVIRONMENT: DEBUG
     ports:
