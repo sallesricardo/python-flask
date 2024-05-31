@@ -10,7 +10,7 @@ from schemas import TagSchema, TagAndItemSchema
 
 blp = Blueprint("Tags", __name__, description="Operationd with Tags")
 
-@blp.route("/store/<string:store_id>/tag")
+@blp.route("/store/<int:store_id>/tag")
 class TagsInStore(MethodView):
     @jwt_required()
     @blp.response(200, TagSchema(many=True))
@@ -31,7 +31,7 @@ class TagsInStore(MethodView):
             abort(500, message=str(e))
         return tag
 
-@blp.route("/item/<string:item_id>/tag/<string:tag_id>")
+@blp.route("/item/<int:item_id>/tag/<string:tag_id>")
 class LinkTagsToItem(MethodView):
     @jwt_required()
     @blp.response(201, TagSchema)
@@ -61,7 +61,7 @@ class LinkTagsToItem(MethodView):
             abort(500, message=f"A error occurred on unlink item and tag {str(e)}")
         return { "message": f"Item removed from tag item: {str(item)} tag: {str(tag)}" }
 
-@blp.route("/tag/<string:tag_id>")
+@blp.route("/tag/<int:tag_id>")
 class Tag(MethodView):
     @jwt_required()
     @blp.response(200, TagSchema)

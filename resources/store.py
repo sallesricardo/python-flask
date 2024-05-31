@@ -10,7 +10,7 @@ from schemas import StoreSchema
 
 blp = Blueprint("stores", __name__, description="Operations on stores")
 
-@blp.route("/store/<string:store_id>")
+@blp.route("/store/<int:store_id>")
 class Store(MethodView):
     @jwt_required()
     @blp.response(200, StoreSchema)

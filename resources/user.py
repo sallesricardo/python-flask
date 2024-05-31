@@ -56,7 +56,7 @@ class TokenRefresh(MethodView):
         new_token = create_access_token(identity=current_user, fresh=False)
         return { "access_token": new_token }
 
-@blp.route("/user/<string:user_id>")
+@blp.route("/user/<int:user_id>")
 class User(MethodView):
     @jwt_required()
     @blp.response(200, UserSchema)
